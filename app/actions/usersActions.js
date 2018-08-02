@@ -1,3 +1,4 @@
+import createAction from 'redux-actions';
 import { omit }from '../utils/functions';
 import { USERS } from '../actions/actionTypes';
 import {
@@ -12,22 +13,12 @@ import {
 } from '../constants';
 import { getUserId } from '../utils/user';
 
-export const loadingUsersBegin = () => {
-  return ({
-    type: USERS.LOADING_BEGIN
-  });
-};
-
-export const loadingUsersComplete = () => ({
-  type: USERS.LOADING_COMPLETE
+export const getUsers = createAction(USERS.GET_ALL, (queryParams = DEFAULT_PAGINATION_QUERY) => {
+  const promise = fetchUsers(queryParams);
+  return { promise };
 });
 
-export const loadingUsersFailed = error => ({
-  type: USERS.LOADING_FAILED,
-  payload: { error }
-});
-
-export const createUsersSuccess = user => ({
+/* export const createUsersSuccess = user => ({
   type: USERS.CREATE_SUCCESS,
   payload: user
 });
@@ -50,7 +41,7 @@ export const updateUsersSuccess = user => ({
 export const deleteUsersSuccess = user => ({
   type: USERS.DELETE_SUCCESS,
   payload: user
-});
+}); */
 
 export function selectUser(user) {
   return dispatch => {
@@ -100,7 +91,7 @@ export function createUser(userData) {
   };
 }
 
-export function getUsers(queryParams = DEFAULT_PAGINATION_QUERY) {
+/* export function getUsers(queryParams = DEFAULT_PAGINATION_QUERY) {
   return dispatch => {
     dispatch(loadingUsersBegin());
     return fetchUsers(queryParams)
@@ -115,9 +106,9 @@ export function getUsers(queryParams = DEFAULT_PAGINATION_QUERY) {
       })
       .catch((error) => handleErrors(error, dispatch));
   };
-}
+} */
 
 function handleErrors(error, dispatch) {
   errorService.logErrors('action failed', 'userActions.js');
-  dispatch(loadingUsersFailed(error));
+  // dispatch(loadingUsersFailed(error));
 }

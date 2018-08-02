@@ -20,13 +20,19 @@ export default function usersReducer(state = initialState, action) {
           ...state.data
         ]
       };
-
     case USERS.DELETE_SUCCESS:
       return {
         ...state,
         data: state.data.filter(user => getUserId(action.payload) !== getUserId(user))
       };
-
+    case `${USERS.GET_ALL} pending`:
+      return {
+        ...state,
+        fetch: {
+          loading: true,
+          error: null
+        }
+      };
     case USERS.GET_ALL_SUCCESS:
       return {
         ...state,
