@@ -1,3 +1,3 @@
-# React Base
+# Redux Middlewares
 
-_This repository is the base of the feature repositories that forks from here_
+Sample integration of redux middlewares such as: redux-saga, promise-middleware, thunk-middleware, redux-logger.
