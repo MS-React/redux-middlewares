@@ -23,3 +23,7 @@ export function omit(entity, property) {
   delete newEntity[property];
   return newEntity;
 }
+
+export function identity(value) {
+  return value;
+}

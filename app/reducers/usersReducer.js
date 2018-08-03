@@ -1,5 +1,8 @@
 import { USERS } from '../actions/actionTypes';
 import { getUserId } from '../utils/user';
+import { PROMISE_SUFFIXES } from '../constants';
+
+const [PENDING, FULFILLED, REJECTED] = PROMISE_SUFFIXES;
 
 export const initialState = {
   data: [],
@@ -12,20 +15,9 @@ export const initialState = {
 
 export default function usersReducer(state = initialState, action) {
   switch(action.type) {
-    case USERS.CREATE_SUCCESS:
-      return {
-        ...state,
-        data: [
-          action.payload,
-          ...state.data
-        ]
-      };
-    case USERS.DELETE_SUCCESS:
-      return {
-        ...state,
-        data: state.data.filter(user => getUserId(action.payload) !== getUserId(user))
-      };
-    case `${USERS.GET_ALL} pending`:
+    case `${USERS.CREATE} ${PENDING}`: // pending
+    case `${USERS.GET_ALL} ${PENDING}`: // pending
+    case `${USERS.DELETE} ${PENDING}`: // pending
       return {
         ...state,
         fetch: {
@@ -33,18 +25,32 @@ export default function usersReducer(state = initialState, action) {
           error: null
         }
       };
-    case USERS.GET_ALL_SUCCESS:
+    case `${USERS.GET_ALL} ${FULFILLED}`: // fulfilled
       return {
         ...state,
-        data: action.payload.users
+        data: action.payload.data.docs,
+        fetch: {
+          ...state.fetch,
+          loading: false,
+          error: null
+        }
       };
-
+    case `${USERS.DELETE} ${FULFILLED}`: // fulfilled
+    case `${USERS.CREATE} ${FULFILLED}`: // fulfilled
+    case `${USERS.UPDATE} ${FULFILLED}`: // fulfilled
+      return {
+        ...state,
+        fetch: {
+          ...state.fetch,
+          loading: false,
+          error: null
+        }
+      };
     case USERS.SELECT_SUCCESS:
       return {
         ...state,
         selectedUser: action.payload
       };
-
     case USERS.UPDATE_SUCCESS:
       return {
         ...state,
@@ -53,26 +59,9 @@ export default function usersReducer(state = initialState, action) {
           ...state.data.filter(user => getUserId(action.payload) !== getUserId(user))
         ]
       };
-
-    case USERS.LOADING_BEGIN:
-      return {
-        ...state,
-        fetch: {
-          loading: true,
-          error: null
-        }
-      };
-
-    case USERS.LOADING_COMPLETE:
-      return {
-        ...state,
-        fetch: {
-          loading: false,
-          error: null
-        }
-      };
-
-    case USERS.LOADING_FAILED:
+    case `${USERS.CREATE} ${REJECTED}`: // rejected
+    case `${USERS.DELETE} ${REJECTED}`: // rejected
+    case `${USERS.GET_ALL} ${REJECTED}`: // rejected
       return {
         ...state,
         fetch: {
@@ -80,7 +69,6 @@ export default function usersReducer(state = initialState, action) {
           error: action.payload.error
         }
       };
-
     default:
       return state;
   }

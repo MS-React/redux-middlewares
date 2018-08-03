@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import OverlayLoader from 'react-overlay-loading/lib/OverlayLoader';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Col, Row } from 'reactstrap';
@@ -14,7 +15,8 @@ import './HomePage.scss';
 export class HomePage extends React.Component {
   static propTypes = {
     users: PropTypes.array,
-    usersActions: PropTypes.object.isRequired
+    usersActions: PropTypes.object.isRequired,
+    loading: PropTypes.bool.isRequired
   };
 
   state = {
@@ -74,42 +76,52 @@ export class HomePage extends React.Component {
     const pagination = paginationFactory();
 
     return (
-      <div className="home-page">
-        <div className="home-page--header">
-          <Header />
-        </div>
-        <div className="container">
-          <Row>
-            <Col md="8">
-              <h4>Users List</h4>
-            </Col>
-            <Col md="4">
-              <div className="home-page--action-buttons">
-                <ActionButtons
-                  user={this.state.user}
-                  onConfirm={this.handleUserActionType}
-                />
-              </div>
-            </Col>
-          </Row>
-          <div className="home-page--table">
-            <BootstrapTable
-              keyField='id'
-              data={ this.props.users }
-              columns={ columns }
-              selectRow={ selectRow }
-              pagination={ pagination }
-            />
+      <OverlayLoader
+        color={'green'} // default is white
+        loader="PacmanLoader" // check below for more loaders
+        text="Recalculating!"
+        active={this.props.loading}
+        backgroundColor={'black'} // default is black
+        opacity=".4" // default is .9
+      >
+        <div className="home-page">
+          <div className="home-page--header">
+            <Header />
+          </div>
+          <div className="container">
+            <Row>
+              <Col md="8">
+                <h4>Users List</h4>
+              </Col>
+              <Col md="4">
+                <div className="home-page--action-buttons">
+                  <ActionButtons
+                    user={this.state.user}
+                    onConfirm={this.handleUserActionType}
+                  />
+                </div>
+              </Col>
+            </Row>
+            <div className="home-page--table">
+              <BootstrapTable
+                keyField='id'
+                data={ this.props.users }
+                columns={ columns }
+                selectRow={ selectRow }
+                pagination={ pagination }
+              />
+            </div>
           </div>
         </div>
-      </div>
+      </OverlayLoader>
     );
   }
 }
 
 export function mapStateToProps(state) {
   return {
-    users: state.users.data
+    users: state.users.data,
+    loading: state.users.fetch.loading
   };
 }
 
