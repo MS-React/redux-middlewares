@@ -14,7 +14,7 @@ export const initialState = {
 };
 
 export default function usersReducer(state = initialState, action) {
-  switch(action.type) {
+  switch (action.type) {
     case `${USERS.CREATE} ${PENDING}`: // pending
     case `${USERS.GET_ALL} ${PENDING}`: // pending
     case `${USERS.DELETE} ${PENDING}`: // pending

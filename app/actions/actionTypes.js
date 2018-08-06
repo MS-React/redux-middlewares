@@ -3,5 +3,6 @@ export const USERS = {
   CREATE: '[users] Create',
   DELETE: '[users] Delete',
   UPDATE: '[users] Update',
-  SELECT_SUCCESS: '[users] Select success'
+  SELECT_SUCCESS: '[users] Select success',
+  UPDATE_SUCCESS: '[users] Update success'
 };

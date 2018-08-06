@@ -10,7 +10,7 @@ describe('usersReducer', () => {
     expect(usersReducer).toEqual(expect.any(Function));
   });
 
-  it('should return the initial state', () => {
+  fit('should return the initial state', () => {
     expect(usersReducer(undefined, {})).toEqual(initialState);
   });
 
@@ -103,14 +103,14 @@ describe('usersReducer', () => {
       type: USERS.DELETE_SUCCESS,
       payload: {
         _id: 'fake.id.joe',
-        name: 'John Doe' 
+        name: 'John Doe'
       }
     };
     const expectedState = {
       ...initialState,
       data: [{
         _id: 'fake.id.jane',
-        name: 'Jane Doe' 
+        name: 'Jane Doe'
       }],
     };
 
@@ -120,17 +120,17 @@ describe('usersReducer', () => {
         data: [
           {
             _id: 'fake.id.joe',
-            name: 'John Doe' 
+            name: 'John Doe'
           },
           {
             _id: 'fake.id.jane',
-            name: 'Jane Doe' 
+            name: 'Jane Doe'
           }
         ],
       },
       action
     );
-    
+
     expect(state).toEqual(expectedState);
   });
 
@@ -138,17 +138,17 @@ describe('usersReducer', () => {
     const action = {
       type: USERS.CREATE_SUCCESS,
       payload: {
-        name: 'John Doe' 
+        name: 'John Doe'
       }
     };
     const expectedState = {
       ...initialState,
       data: [
         {
-          name: 'John Doe' 
+          name: 'John Doe'
         },
         {
-          name: 'Jane Doe' 
+          name: 'Jane Doe'
         }
       ]
     };
@@ -158,7 +158,7 @@ describe('usersReducer', () => {
         ...initialState,
         data: [
           {
-            name: 'Jane Doe' 
+            name: 'Jane Doe'
           }
         ],
       },
@@ -181,11 +181,11 @@ describe('usersReducer', () => {
       data: [
         {
           _id: 'fake.id.john',
-          name: 'John Doe Jr.' 
+          name: 'John Doe Jr.'
         },
         {
           _id: 'fake.id.jane',
-          name: 'Jane Doe' 
+          name: 'Jane Doe'
         }
       ]
     };
@@ -196,11 +196,11 @@ describe('usersReducer', () => {
         data: [
           {
             _id: 'fake.id.john',
-            name: 'John Doe' 
+            name: 'John Doe'
           },
           {
             _id: 'fake.id.jane',
-            name: 'Jane Doe' 
+            name: 'Jane Doe'
           }
         ],
       },
