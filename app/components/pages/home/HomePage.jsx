@@ -78,7 +78,7 @@ export class HomePage extends React.Component {
     return (
       <OverlayLoader
         color={'green'} // default is white
-        loader="PacmanLoader" // check below for more loaders
+        loader="PacmanLoader"
         text="Recalculating!"
         active={this.props.loading}
         backgroundColor={'black'} // default is black

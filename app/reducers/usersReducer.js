@@ -1,8 +1,5 @@
 import { USERS } from '../actions/actionTypes';
 import { getUserId } from '../utils/user';
-import { PROMISE_SUFFIXES } from '../constants';
-
-const [PENDING, FULFILLED, REJECTED] = PROMISE_SUFFIXES;
 
 export const initialState = {
   data: [],
@@ -15,9 +12,9 @@ export const initialState = {
 
 export default function usersReducer(state = initialState, action) {
   switch(action.type) {
-    case `${USERS.CREATE} ${PENDING}`: // pending
-    case `${USERS.GET_ALL} ${PENDING}`: // pending
-    case `${USERS.DELETE} ${PENDING}`: // pending
+    case USERS._PROMISE_STATES.CREATE_PENDING: // pending
+    case USERS._PROMISE_STATES.UPDATE_PENDING: // pending
+    case USERS._PROMISE_STATES.DELETE_PENDING: // pending
       return {
         ...state,
         fetch: {
@@ -25,7 +22,7 @@ export default function usersReducer(state = initialState, action) {
           error: null
         }
       };
-    case `${USERS.GET_ALL} ${FULFILLED}`: // fulfilled
+    case USERS._PROMISE_STATES.GET_ALL_FULFILLED: // fulfilled
       return {
         ...state,
         data: action.payload.data.docs,
@@ -35,9 +32,9 @@ export default function usersReducer(state = initialState, action) {
           error: null
         }
       };
-    case `${USERS.DELETE} ${FULFILLED}`: // fulfilled
-    case `${USERS.CREATE} ${FULFILLED}`: // fulfilled
-    case `${USERS.UPDATE} ${FULFILLED}`: // fulfilled
+    case USERS._PROMISE_STATES.CREATE_FULFILLED: // fulfilled
+    case USERS._PROMISE_STATES.UPDATE_FULFILLED: // fulfilled
+    case USERS._PROMISE_STATES.DELETE_FULFILLED: // fulfilled
       return {
         ...state,
         fetch: {
@@ -59,9 +56,9 @@ export default function usersReducer(state = initialState, action) {
           ...state.data.filter(user => getUserId(action.payload) !== getUserId(user))
         ]
       };
-    case `${USERS.CREATE} ${REJECTED}`: // rejected
-    case `${USERS.DELETE} ${REJECTED}`: // rejected
-    case `${USERS.GET_ALL} ${REJECTED}`: // rejected
+    case USERS._PROMISE_STATES.CREATE_REJECTED: // rejected
+    case USERS._PROMISE_STATES.UPDATE_REJECTED: // rejected
+    case USERS._PROMISE_STATES.DELETE_REJECTED: // rejected
       return {
         ...state,
         fetch: {
