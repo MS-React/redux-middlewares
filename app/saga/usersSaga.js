@@ -3,7 +3,7 @@ import * as userActions from '../actions/usersActions';
 import { USERS } from '../actions/actionTypes';
 import { NotificationManager } from 'react-notifications';
 
-function* notifyAndFetchUsers(action) {
+export function* notifyAndFetchUsers(action) {
   const { type: actionType, payload } = action;
   switch (actionType) {
     case USERS._PROMISE_STATES.UPDATE_FULFILLED:
@@ -19,7 +19,7 @@ function* notifyAndFetchUsers(action) {
   yield put(userActions.getUsers());
 }
 
-function* refreshUsersListSage() {
+export function* refreshUsersListSage() {
   yield takeLatest([
     USERS._PROMISE_STATES.CREATE_FULFILLED,
     USERS._PROMISE_STATES.UPDATE_FULFILLED,

@@ -1,5 +1,4 @@
 import { USERS } from '../actions/actionTypes';
-import { getUserId } from '../utils/user';
 
 export const initialState = {
   data: [],
@@ -43,18 +42,10 @@ export default function usersReducer(state = initialState, action) {
           error: null
         }
       };
-    case USERS.SELECT_SUCCESS:
+    case USERS.SELECT:
       return {
         ...state,
         selectedUser: action.payload
-      };
-    case USERS.UPDATE_SUCCESS:
-      return {
-        ...state,
-        data: [
-          action.payload,
-          ...state.data.filter(user => getUserId(action.payload) !== getUserId(user))
-        ]
       };
     case USERS._PROMISE_STATES.CREATE_REJECTED: // rejected
     case USERS._PROMISE_STATES.UPDATE_REJECTED: // rejected

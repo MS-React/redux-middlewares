@@ -84,18 +84,16 @@ describe('usersActions', () => {
       });
     });
 
-
-    xit('should create an action for select user', () => {
+    it('should create an action for select user', () => {
       // Arrange
       const user = { _id: 'user-id-2' };
 
       // Act
-      const actionDispatch = selectUser(user);
-      const response = actionDispatch();
+      const response = selectUser(user);
 
       // Assert
       expect(response).toEqual(expect.objectContaining({
-        type: USERS.SELECT_SUCCESS
+        type: USERS.SELECT
       }));
     });
   });

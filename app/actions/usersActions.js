@@ -37,16 +37,4 @@ export const updateUser = createAction(USERS.UPDATE, (user) => (
   }
 ), identity);
 
-export const selectUsersSuccess = user => ({
-  type: USERS.SELECT_SUCCESS,
-  payload: user
-});
-
-export function selectUser(user) {
-  return dispatch => {
-    return new Promise(resolve => {
-      dispatch(selectUsersSuccess(user));
-      resolve(user);
-    });
-  };
-}
+export const selectUser = createAction(USERS.SELECT);
