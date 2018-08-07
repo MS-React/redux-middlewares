@@ -59,7 +59,6 @@ describe('<HomePage /> component', () => {
         'createUser',
         'deleteUser',
         'updateUser',
-        'selectUsersSuccess',
         'selectUser'
       ];
 
