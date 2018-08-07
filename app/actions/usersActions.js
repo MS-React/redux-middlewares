@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { identity, omit }from '../utils/functions';
+import { identity, omit } from '../utils/functions';
 import { USERS } from './actionTypes';
 import {
   createUsers,

@@ -11,7 +11,7 @@ export const initialState = {
 };
 
 export default function usersReducer(state = initialState, action) {
-  switch(action.type) {
+  switch (action.type) {
     case USERS._PROMISE_STATES.CREATE_PENDING: // pending
     case USERS._PROMISE_STATES.UPDATE_PENDING: // pending
     case USERS._PROMISE_STATES.DELETE_PENDING: // pending

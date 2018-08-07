@@ -6,7 +6,8 @@ const USER_ACTIONS = {
   CREATE: '[users] Create',
   DELETE: '[users] Delete',
   UPDATE: '[users] Update',
-  SELECT_SUCCESS: '[users] Select success'
+  SELECT_SUCCESS: '[users] Select success',
+  UPDATE_SUCCESS: '[users] Update success'
 };
 
 const _PROMISE_STATES = {
