@@ -16,7 +16,7 @@ describe('usersReducer', () => {
 
   it('should set loading users to `true` ', () => {
     const action = {
-      type: USERS.LOADING_BEGIN
+      type: USERS._PROMISE_STATES.CREATE_PENDING
     };
     const expectedState = {
       ...initialState,
@@ -31,7 +31,7 @@ describe('usersReducer', () => {
 
   it('should set loading users to `false`', () => {
     const action = {
-      type: USERS.LOADING_COMPLETE
+      type: USERS._PROMISE_STATES.CREATE_FULFILLED
     };
     const expected = {
       ...initialState,
@@ -46,7 +46,7 @@ describe('usersReducer', () => {
 
   it('should set loading users to `false` and set the error', () => {
     const action = {
-      type: USERS.LOADING_FAILED,
+      type: USERS._PROMISE_STATES.CREATE_REJECTED,
       payload: {
         error: 'foo'
       }
@@ -64,11 +64,13 @@ describe('usersReducer', () => {
 
   it('should load the fetched users into the store', () => {
     const action = {
-      type: USERS.GET_ALL_SUCCESS,
+      type: USERS._PROMISE_STATES.GET_ALL_FULFILLED,
       payload: {
-        users: [{
-          name: 'John Doe'
-        }]
+        data: {
+          docs: [{
+            name: 'John Doe'
+          }]
+        }
       }
     };
     const expected = {
@@ -83,7 +85,7 @@ describe('usersReducer', () => {
 
   it('should set the selected user in the store', () => {
     const action = {
-      type: USERS.SELECT_SUCCESS,
+      type: USERS.SELECT,
       payload: {
         name: 'John Doe'
       }
@@ -96,117 +98,5 @@ describe('usersReducer', () => {
     };
 
     expect(usersReducer(initialState, action)).toEqual(expected);
-  });
-
-  it('should delete the given user from the store', () => {
-    const action = {
-      type: USERS.DELETE_SUCCESS,
-      payload: {
-        _id: 'fake.id.joe',
-        name: 'John Doe' 
-      }
-    };
-    const expectedState = {
-      ...initialState,
-      data: [{
-        _id: 'fake.id.jane',
-        name: 'Jane Doe' 
-      }],
-    };
-
-    const state = usersReducer(
-      {
-        ...initialState,
-        data: [
-          {
-            _id: 'fake.id.joe',
-            name: 'John Doe' 
-          },
-          {
-            _id: 'fake.id.jane',
-            name: 'Jane Doe' 
-          }
-        ],
-      },
-      action
-    );
-    
-    expect(state).toEqual(expectedState);
-  });
-
-  it('should add the created user into the store', () => {
-    const action = {
-      type: USERS.CREATE_SUCCESS,
-      payload: {
-        name: 'John Doe' 
-      }
-    };
-    const expectedState = {
-      ...initialState,
-      data: [
-        {
-          name: 'John Doe' 
-        },
-        {
-          name: 'Jane Doe' 
-        }
-      ]
-    };
-
-    const state = usersReducer(
-      {
-        ...initialState,
-        data: [
-          {
-            name: 'Jane Doe' 
-          }
-        ],
-      },
-      action
-    );
-
-    expect(state).toEqual(expectedState);
-  });
-
-  it('should update the modified user in the store', () => {
-    const action = {
-      type: USERS.UPDATE_SUCCESS,
-      payload: {
-        _id: 'fake.id.john',
-        name: 'John Doe Jr.'
-      }
-    };
-    const expectedState = {
-      ...initialState,
-      data: [
-        {
-          _id: 'fake.id.john',
-          name: 'John Doe Jr.' 
-        },
-        {
-          _id: 'fake.id.jane',
-          name: 'Jane Doe' 
-        }
-      ]
-    };
-
-    const state = usersReducer(
-      {
-        ...initialState,
-        data: [
-          {
-            _id: 'fake.id.john',
-            name: 'John Doe' 
-          },
-          {
-            _id: 'fake.id.jane',
-            name: 'Jane Doe' 
-          }
-        ],
-      },
-      action
-    );
-
-    expect(state).toEqual(expectedState);
   });
 });

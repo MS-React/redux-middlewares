@@ -4,7 +4,8 @@ import { HomePage, mapDispatchToProps, mapStateToProps } from './HomePage';
 import initialState from '../../../reducers/initialState';
 
 function setup(props) {
-  return shallow(<HomePage {...props} />);
+  const defaultProps = { loading: false, ...props };
+  return shallow(<HomePage {...defaultProps} />);
 }
 
 describe('<HomePage /> component', () => {
@@ -26,6 +27,7 @@ describe('<HomePage /> component', () => {
     it('should return the initial state of users module', () => {
       // Arrange
       const expectedProps = {
+        loading: false,
         users: []
       };
 
@@ -40,7 +42,7 @@ describe('<HomePage /> component', () => {
   describe('mapDispatchToProps functions', () => {
     it('usersActions prop should be defined', () => {
       // Arrange
-      const dispatch = () => {};
+      const dispatch = () => { };
 
       // Act
       const props = mapDispatchToProps(dispatch);
@@ -51,21 +53,13 @@ describe('<HomePage /> component', () => {
 
     it('should return the binded actions', () => {
       // Arrange
-      const dispatch = () => {};
+      const dispatch = () => { };
       const expectedActions = [
-        'loadingUsersBegin',
-        'loadingUsersComplete',
-        'loadingUsersFailed',
-        'createUsersSuccess',
-        'selectUsersSuccess',
-        'getUsersSuccess',
-        'updateUsersSuccess',
-        'deleteUsersSuccess',
-        'selectUser',
+        'getUsers',
+        'createUser',
         'deleteUser',
         'updateUser',
-        'createUser',
-        'getUsers'
+        'selectUser'
       ];
 
       // Act
@@ -86,11 +80,11 @@ describe('<HomePage /> component', () => {
       const wrapper = setup({
         usersActions: {
           selectUser,
-          getUsers: () => {},
-          createUser: () => {},
-          updateUser: () => {},
-          deleteUser: () => {}
-        },
+          getUsers: () => { },
+          createUser: () => { },
+          updateUser: () => { },
+          deleteUser: () => { }
+        }
       });
 
       // Act
@@ -109,10 +103,10 @@ describe('<HomePage /> component', () => {
       const wrapper = setup({
         usersActions: {
           selectUser: 'text',
-          getUsers: () => {},
-          createUser: () => {},
-          updateUser: () => {},
-          deleteUser: () => {}
+          getUsers: () => { },
+          createUser: () => { },
+          updateUser: () => { },
+          deleteUser: () => { }
         },
       });
 
@@ -134,11 +128,11 @@ describe('<HomePage /> component', () => {
       const createUser = jest.fn();
       const wrapper = setup({
         usersActions: {
-          selectUser: () => {},
-          getUsers: () => {},
+          selectUser: () => { },
+          getUsers: () => { },
           createUser,
-          updateUser: () => {},
-          deleteUser: () => {}
+          updateUser: () => { },
+          deleteUser: () => { }
         },
       });
 
@@ -158,11 +152,11 @@ describe('<HomePage /> component', () => {
       const updateUser = jest.fn();
       const wrapper = setup({
         usersActions: {
-          selectUser: () => {},
-          getUsers: () => {},
-          createUser: () => {},
+          selectUser: () => { },
+          getUsers: () => { },
+          createUser: () => { },
           updateUser,
-          deleteUser: () => {}
+          deleteUser: () => { }
         },
       });
 
@@ -182,10 +176,10 @@ describe('<HomePage /> component', () => {
       const deleteUser = jest.fn();
       const wrapper = setup({
         usersActions: {
-          selectUser: () => {},
-          getUsers: () => {},
-          createUser: () => {},
-          updateUser: () => {},
+          selectUser: () => { },
+          getUsers: () => { },
+          createUser: () => { },
+          updateUser: () => { },
           deleteUser
         },
       });
@@ -210,7 +204,7 @@ describe('<HomePage /> component', () => {
       const wrapper = setup({
         usersActions: {
           selectUser,
-          getUsers: () => {},
+          getUsers: () => { },
           createUser,
           updateUser,
           deleteUser
@@ -236,11 +230,11 @@ describe('<HomePage /> component', () => {
       const createUser = jest.fn();
       const wrapper = setup({
         usersActions: {
-          selectUser: () => {},
-          getUsers: () => {},
+          selectUser: () => { },
+          getUsers: () => { },
           createUser,
-          updateUser: () => {},
-          deleteUser: () => {}
+          updateUser: () => { },
+          deleteUser: () => { }
         },
       });
 
